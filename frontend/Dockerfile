@@ -2,16 +2,19 @@ FROM node:18-alpine
 
 LABEL maintainer="Opstree Solutions"
 
-COPY . /app
-WORKDIR /app/
+WORKDIR /app
+COPY . .
 
 RUN apk add --no-cache git
 
-RUN npm install 
+# 🔥 FIX FOR NODE 18 + REACT
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
+RUN npm install
 RUN npm run build
 
-RUN yarn global add serve
+RUN npm install -g serve
 
 EXPOSE 3000
 
-ENTRYPOINT ["serve", "-s", "build"]
+CMD ["serve", "-s", "build"]
