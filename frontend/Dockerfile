@@ -1,13 +1,11 @@
 FROM node:18-alpine
 
-LABEL maintainer="Opstree Solutions"
-
 WORKDIR /app
 COPY . .
 
 RUN apk add --no-cache git
 
-# 🔥 FIX FOR NODE 18 + REACT
+# fix for node 18
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
 RUN npm install
