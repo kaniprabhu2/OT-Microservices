@@ -1,16 +1,13 @@
-FROM node:16.15.1
+FROM node:18-alpine
 
-MAINTAINER Opstree Solutions
+LABEL maintainer="Opstree Solutions"
 
 COPY . /app
-
 WORKDIR /app/
 
-RUN apt-get update -y && \
-    apt-get install git -y
+RUN apk add --no-cache git
 
 RUN npm install 
-
 RUN npm run build
 
 RUN yarn global add serve
